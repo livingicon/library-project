@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Project</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="./images/book-icon.png" alt="open book icon">
+      <h1>BookTracker</h1>
+    </div>
+    <div class="addBook">
+      <p>Click the button to add a new book to your library.</p>
+      <button id="modalBtn">Add New Book</button>
+    </div>
+  </div>
+  <div class="right">
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Library</h1>
+      <p>Books in your library are listed below.</p>
+    </div>
+    <!-- LIBRARY CARDS -->
+    <div id="library-cards">
+      <!-- this is where we will insert the .cards -->
+    </div>
+    <!-- MODAL FORM -->
+    <div id="modal">
+      <form id="addBookForm">
+        <div>
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="title" maxlength="100" required>
+        </div>
+
+        <div>
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" placeholder="author" maxlength="100" required>
+        </div>
+
+        <div>
+          <label for="pages">Pages</label>
+          <input type="number" id="pages" name="pages" placeholder="pages" maxlength="10000" required>
+        </div>
+
+        <div>
+          <label for="read">Have you read it?</label>
+          <input class="checkbox" type="checkbox" id="read">
+        </div>
+
+        <button id="submitBtn" type="submit">Add Book</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
