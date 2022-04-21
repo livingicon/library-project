@@ -1,7 +1,8 @@
 /* 
 -fonts
 -modal formatting
--card formatting
+-card formatting (add x to close...change checkbox format...lose autofill on author)
+-change library-cards div to not dynamic grid
 -root?
 */
 
@@ -14,6 +15,7 @@ html body {
   grid-template-columns: 1fr 5fr;
   /* is this right? */
   min-height: 100vh;
+  max-height: 100vh;
   margin: 0;
   padding: 0;
   font-size: 1rem;
@@ -76,14 +78,15 @@ html body {
  background-color: #e2e8f0;
  display: grid;
  /* below will need some px and fr adjustments */
- grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+ /* add grid-template-rows */
  grid-gap: 30px;
 }
 
 .card {
   background-color: #8a816d;
   width: 200px;
-  height: 250px;
+  height: 200px;
 }
 
 #modal {

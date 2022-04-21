@@ -1,11 +1,3 @@
-//PSEUDOCODE
-//1. self-invoking function iterates through existing myLibrary loading all existing cards
-//2. added card adds another one to function and runs self-invoking again?
-//3. delete removes from array and runs through again
-//4. read/unread must change the object within array and then run through again
-//--NOTE: Re-loading page should not remove existing library (mine currently does)
-
-
 //VARIABLES 
 //library and local storage
 let myLibrary = [];
@@ -13,105 +5,121 @@ let myLibrary = [];
 const modal = document.getElementById("modal");
 const modalBtn = document.getElementById("modalBtn");
 const submitBtn = document.getElementById("submitBtn");
+const deleteBtn = document.getElementById("deleteBtn");
+const readBtn = document.getElementById('readBtn');
 
 //EVENT LISTENERS
 modalBtn.addEventListener('click', openModal);
 submitBtn.addEventListener('click', addBookToLibrary);
 
 //FUNCTIONS
-//constructor
+//1. constructor
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
 };
-//local storage (why does this "if" work?)
-if (localStorage.getItem('myLibrary')) {
+
+//2. onload, access local storage
+window.onload = function() {
   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-  console.log(myLibrary);
+  addCards();
 };
 
+//3. open form
+function openModal() {
+  modal.style.display = "block";
+};
+
+//4. add book
 function addBookToLibrary(e) { 
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
-  
   if (!title || !author || !pages) {
-    alert("All fields are required to add a book"); //change this to a message on the actual form
+    alert("All fields are required to add a book");
   } else {
-    e.preventDefault(); //prevents default page refresh when submitted
-    //myLibrary array
+    e.preventDefault();
+    //myLibrary
     let newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-    console.log(myLibrary); //note: remove on final draft
-    
-    //card
-    addCards(newBook); //newBook required for my function, but I don't want my function
-    modal.style.display = "none"; //removes form
-    document.getElementById("addBookForm").reset(); //clears form
+    //cards
+    addCards(newBook);
   }
-
-  //function that iterates through myLibrary and posts cards (wes bos?)
 };
 
-function openModal(title, author, pages, read) {
-  modal.style.display = "block"
-};
-
-//FUNCTION addCards without iteration
-// function addCards(newBook) {
-//   //need to iterate through library and load them all when the page loads...how?
-//   //CREATE ELEMENTS
-//   const card = document.createElement('div');
-//   const title = document.createElement('p');
-//   const author = document.createElement('p');
-//   const pages = document.createElement('p');
-//   const cardButtons = document.createElement('div');
-//   const readBtn = document.createElement('button');
-//   const deleteBtn = document.createElement('button');
-//   //ADD CLASSES AND IDs
-//   card.classList.add("card");
-//   cardButtons.classList.add('cardButtons');
-//   readBtn.setAttribute('id', 'readBtn');
-//   deleteBtn.setAttribute('id', 'deleteBtn');
-//   //ADD TEXT
-//   title.textContent = `Title: ${newBook.title}`;
-//   author.textContent = `Author: ${newBook.author}`;
-//   pages.textContent = `Page Count: ${newBook.pages}`;
-//   readBtn.textContent = "Completed";
-//   deleteBtn.textContent = "Delete from Library";
-//   //GET DIV WE ARE APPENDING CARD TO
-//   const library = document.getElementById("library-cards");
-//   //APPEND
-//   library.append(card);
-//   card.append(title);
-//   card.append(author);
-//   card.append(pages);
-//   card.append(readBtn);
-//   card.append(deleteBtn);
-// };
-
-//FUNCTION addCards with iteration
+//addCards with iteration through myLibrary
 function addCards() {
+  const library = document.getElementById("library-cards");
+  library.innerHTML = ""; //clears library-cards to avoid double
   for (book of myLibrary) {
     generateCard(book);
   }
+  modal.style.display = "none";
+  document.getElementById("addBookForm").reset(); //clears form
 }
 
+//generateCard
 function generateCard(book) {
-  console.log(book);
-  //do all the card creation here
-}
-
-//TOGGLE COMPLETED AND NOT COMPLETED BUTTON
-function read() {
-
+  //create elements
+  const card = document.createElement('div');
+  const title = document.createElement('p');
+  const author = document.createElement('p');
+  const pages = document.createElement('p');
+  const cardButtons = document.createElement('div');
+  const readBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
+  //add classes and ids
+  card.classList.add("card");
+  cardButtons.classList.add('cardButtons');
+  readBtn.setAttribute('id', 'readBtn');
+  readBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
+  deleteBtn.setAttribute('id', 'deleteBtn');
+  deleteBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
+  //add text
+  title.textContent = `Title: ${book.title}`;
+  author.textContent = `Author: ${book.author}`;
+  pages.textContent = `Page Count: ${book.pages}`;
+  deleteBtn.textContent = "Delete from Library";
+  if (book.read === true) {
+    readBtn.textContent = "Finished";
+    readBtn.style.backgroundColor = "green";
+  } else {
+    readBtn.textContent = "Unfinished";
+    readBtn.style.backgroundColor = "red";
+  }
+  //get the div we want to append within
+  const library = document.getElementById("library-cards");
+  //append
+  library.append(card);
+  card.append(title);
+  card.append(author);
+  card.append(pages);
+  card.append(readBtn);
+  card.append(deleteBtn);
+  //eventListeners for appended buttons
+  deleteBtn.addEventListener('click', removeBook);
+  readBtn.addEventListener('click', readBook);
 };
 
-//DELETE BOOK FROM LIBRARY
-function remove(){
+//delete card
+function removeBook(e){
+  // console.log(e.target.getAttribute("data-position"));
+  myLibrary.splice(e.target.getAttribute("data-position"), 1); //remove from array
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary)); //reset local Storage
+  addCards();
+};
 
+//toggle finished_unfinished
+function readBook(e) {
+  if (myLibrary[e.target.getAttribute("data-position")].read === true) {
+    myLibrary[e.target.getAttribute("data-position")].read = false;
+  } else {
+    myLibrary[e.target.getAttribute("data-position")].read = true;
+  }
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  addCards();
 };
