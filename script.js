@@ -26,7 +26,7 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 };
-//local storage
+//local storage (why does this "if" work?)
 if (localStorage.getItem('myLibrary')) {
   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
   console.log(myLibrary);
@@ -43,12 +43,13 @@ function addBookToLibrary(e) {
   } else {
     e.preventDefault(); //prevents default page refresh when submitted
     //myLibrary array
-    const newBook = new Book(title, author, pages, read);
+    let newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-    console.log(myLibrary);
+    console.log(myLibrary); //note: remove on final draft
+    
     //card
-    addCard(newBook);
+    addCards(newBook); //newBook required for my function, but I don't want my function
     modal.style.display = "none"; //removes form
     document.getElementById("addBookForm").reset(); //clears form
   }
@@ -60,37 +61,50 @@ function openModal(title, author, pages, read) {
   modal.style.display = "block"
 };
 
-function addCard(newBook) {
-  //need to iterate through library and load them all when the page loads...how?
-  //CREATE ELEMENTS
-  const card = document.createElement('div');
-  const title = document.createElement('p');
-  const author = document.createElement('p');
-  const pages = document.createElement('p');
-  const cardButtons = document.createElement('div');
-  const readBtn = document.createElement('button');
-  const deleteBtn = document.createElement('button');
-  //ADD CLASSES AND IDs
-  card.classList.add("card");
-  cardButtons.classList.add('cardButtons');
-  readBtn.setAttribute('id', 'readBtn');
-  deleteBtn.setAttribute('id', 'deleteBtn');
-  //ADD TEXT
-  title.textContent = `Title: ${newBook.title}`;
-  author.textContent = `Author: ${newBook.author}`;
-  pages.textContent = `Page Count: ${newBook.pages}`;
-  readBtn.textContent = "Completed";
-  deleteBtn.textContent = "Delete from Library";
-  //GET DIV WE ARE APPENDING CARD TO
-  const library = document.getElementById("library-cards");
-  //APPEND
-  library.append(card);
-  card.append(title);
-  card.append(author);
-  card.append(pages);
-  card.append(readBtn);
-  card.append(deleteBtn);
-};
+//FUNCTION addCards without iteration
+// function addCards(newBook) {
+//   //need to iterate through library and load them all when the page loads...how?
+//   //CREATE ELEMENTS
+//   const card = document.createElement('div');
+//   const title = document.createElement('p');
+//   const author = document.createElement('p');
+//   const pages = document.createElement('p');
+//   const cardButtons = document.createElement('div');
+//   const readBtn = document.createElement('button');
+//   const deleteBtn = document.createElement('button');
+//   //ADD CLASSES AND IDs
+//   card.classList.add("card");
+//   cardButtons.classList.add('cardButtons');
+//   readBtn.setAttribute('id', 'readBtn');
+//   deleteBtn.setAttribute('id', 'deleteBtn');
+//   //ADD TEXT
+//   title.textContent = `Title: ${newBook.title}`;
+//   author.textContent = `Author: ${newBook.author}`;
+//   pages.textContent = `Page Count: ${newBook.pages}`;
+//   readBtn.textContent = "Completed";
+//   deleteBtn.textContent = "Delete from Library";
+//   //GET DIV WE ARE APPENDING CARD TO
+//   const library = document.getElementById("library-cards");
+//   //APPEND
+//   library.append(card);
+//   card.append(title);
+//   card.append(author);
+//   card.append(pages);
+//   card.append(readBtn);
+//   card.append(deleteBtn);
+// };
+
+//FUNCTION addCards with iteration
+function addCards() {
+  for (book of myLibrary) {
+    generateCard(book);
+  }
+}
+
+function generateCard(book) {
+  console.log(book);
+  //do all the card creation here
+}
 
 //TOGGLE COMPLETED AND NOT COMPLETED BUTTON
 function read() {
