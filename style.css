@@ -76,7 +76,7 @@ html body {
  background-color: #e2e8f0;
  display: grid;
  /* below will need some px and fr adjustments */
- grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
  grid-gap: 30px;
 }
 

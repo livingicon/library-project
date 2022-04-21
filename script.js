@@ -7,8 +7,8 @@
 
 
 //VARIABLES 
-//library
-const myLibrary = [];
+//library and local storage
+let myLibrary = [];
 //buttons
 const modal = document.getElementById("modal");
 const modalBtn = document.getElementById("modalBtn");
@@ -19,10 +19,6 @@ modalBtn.addEventListener('click', openModal);
 submitBtn.addEventListener('click', addBookToLibrary);
 
 //FUNCTIONS
-//iterates through array (self-invoked)
-(function() {
-  console.log("HELLO WORLD!")
-})();
 //constructor
 function Book(title, author, pages, read) {
   this.title = title;
@@ -30,8 +26,13 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 };
+//local storage
+if (localStorage.getItem('myLibrary')) {
+  myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+  console.log(myLibrary);
+};
 
-function addBookToLibrary(e) {
+function addBookToLibrary(e) { 
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
@@ -41,9 +42,12 @@ function addBookToLibrary(e) {
     alert("All fields are required to add a book"); //change this to a message on the actual form
   } else {
     e.preventDefault(); //prevents default page refresh when submitted
-
+    //myLibrary array
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    console.log(myLibrary);
+    //card
     addCard(newBook);
     modal.style.display = "none"; //removes form
     document.getElementById("addBookForm").reset(); //clears form
@@ -57,9 +61,7 @@ function openModal(title, author, pages, read) {
 };
 
 function addCard(newBook) {
-  //need to iterate through library and load them all when the page loads
-
-
+  //need to iterate through library and load them all when the page loads...how?
   //CREATE ELEMENTS
   const card = document.createElement('div');
   const title = document.createElement('p');
