@@ -4,6 +4,7 @@ let myLibrary = [];
 //buttons
 const modal = document.getElementById("modal");
 const modalBtn = document.getElementById("modalBtn");
+const closeBtn = document.getElementById('closeBtn');
 const submitBtn = document.getElementById("submitBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 const readBtn = document.getElementById('readBtn');
@@ -11,6 +12,7 @@ const readBtn = document.getElementById('readBtn');
 //EVENT LISTENERS
 modalBtn.addEventListener('click', openModal);
 submitBtn.addEventListener('click', addBookToLibrary);
+closeBtn.addEventListener('click', closeModal);
 
 //FUNCTIONS
 //1. constructor
@@ -30,6 +32,11 @@ window.onload = function() {
 //3. open form
 function openModal() {
   modal.style.display = "block";
+};
+
+function closeModal() {
+  modal.style.display = "none";
+  document.getElementById("addBookForm").reset();
 };
 
 //4. add book
