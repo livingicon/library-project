@@ -85,6 +85,7 @@ function generateCard(book) {
   readBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
   deleteBtn.setAttribute('id', 'deleteBtn');
   deleteBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
+  cardButtons.setAttribute('id', 'cardButtons');//is this working?
   //add text
   title.textContent = `Title: ${book.title}`;
   author.textContent = `Author: ${book.author}`;
@@ -92,10 +93,10 @@ function generateCard(book) {
   deleteBtn.textContent = "Delete from Library";
   if (book.read === true) {
     readBtn.textContent = "Finished";
-    readBtn.style.backgroundColor = "green";
+    readBtn.style.backgroundColor = "rgb(13, 82, 26)";
   } else {
     readBtn.textContent = "Unfinished";
-    readBtn.style.backgroundColor = "red";
+    readBtn.style.backgroundColor = "#6a1a1a";
   }
   //get the div we want to append within
   const library = document.getElementById("library-cards");
@@ -104,8 +105,9 @@ function generateCard(book) {
   card.append(title);
   card.append(author);
   card.append(pages);
-  card.append(readBtn);
-  card.append(deleteBtn);
+  card.append(cardButtons);
+  cardButtons.append(readBtn);
+  cardButtons.append(deleteBtn);
   //eventListeners for appended buttons
   deleteBtn.addEventListener('click', removeBook);
   readBtn.addEventListener('click', readBook);

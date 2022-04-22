@@ -1,19 +1,6 @@
-/* 
--fonts
--modal formatting
--card formatting (add x to close...change checkbox format...lose autofill on author)
--change library-cards div to not dynamic grid
--root?
-*/
-
-:root {
-
-}
-
 html body {
   display: grid;
   grid-template-columns: 1fr 5fr;
-  /* is this right? */
   min-height: 100vh;
   max-height: 100vh;
   margin: 0;
@@ -62,12 +49,7 @@ html body {
   font-size: 1.5em;
 }
 
-.right {
-  display: grid;
-  grid-template-rows: 1fr 15fr;
-}
-
-.logo img {
+img {
   height: 3rem;
   width: 3rem;
 }
@@ -82,31 +64,61 @@ html body {
   padding: 20px;
   box-shadow: 10px 15px 20px rgb(151, 151, 151);
   position: relative;
-  z-index: 10;
+  z-index: 0;
+  max-height: 125px;
 }
 
 .header h1 {
+  font-size: 2.7rem;
+  font-weight: bold;
   margin: 0;
+}
+
+.title {
+  display: grid;
+  grid-template-columns: .35fr 5fr;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.title img {
+  margin-left: auto;
+}
+
+.header p {
+  margin: 8px 13px;
+
 }
 
 #library-cards {
  background-color: #e2e8f0;
  display: grid;
- /* below will need some px and fr adjustments */
- grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
- /* add grid-template-rows */
+ grid-template-columns: repeat(auto-fit, minmax(325px, 250px));
  grid-gap: 30px;
  padding: 30px;
+ height: 100vh;
+ align-content: start;
 }
 
 .card {
   background-color: #645743;
   color: #ffffff;
-  padding: 15px;
-  width: 200px;
-  height: 200px;
+  padding: 15px 15px 0px;
+  width: 300px;
+  height: 275px;
   border-radius: 15px;
   box-shadow: 10px 15px 20px rgb(151, 151, 151);
+  margin-bottom: 0px;
+}
+
+.card p {
+  margin-top: 0px;
+}
+
+#cardButtons {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
 }
 
 #readBtn,
@@ -114,32 +126,63 @@ html body {
   border: none;
   border-radius: 15px;
   font-weight: bold;
-  width: 7rem;
-  height: 3rem;
+  font-size: 1.1rem;
+  width: 8rem;
+  height: 3.2rem;
+  color: #ffffff;
+  border: solid 1px #ffffff;
+  box-shadow: 5px 5px 10px rgb(58, 58, 58);
+}
+
+#deleteBtn {
+  background-color: rgb(71, 48, 35);
+}
+
+#readBtn {
   margin-bottom: 15px;
 }
 
 #modal {
   display: none;
   position: fixed; 
-  /* z-index: 1; Sit on top */
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 }
 
 #addBookForm {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 30% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 15px;
+  border: 3px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  display: grid;
+  gap: 10px;
 }
 
-.addBook {
-  /* submit button */
+#submitBtn,
+#closeBtn {
+  color: #fefefe;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  width: 8rem;
+  height: 3rem;
+  font-size: 1.2rem;
+  margin: 5px 10px 0px 0px;
+  box-shadow: 10px 15px 20px rgb(151, 151, 151);
+}
+
+#submitBtn {
+  background-color: rgb(13, 82, 26);
+}
+
+#closeBtn {
+  background-color: #6a1a1a;
 }
