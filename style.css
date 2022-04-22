@@ -78,9 +78,9 @@ html body {
 
 .header {
   color: #ffffff;
-  background-color: #7e7e7e;
+  background-color: #645743;;
   padding: 20px;
-  box-shadow: 10px 15px 20px rgb(182, 182, 182);
+  box-shadow: 10px 15px 20px rgb(151, 151, 151);
   position: relative;
   z-index: 10;
 }
@@ -93,20 +93,30 @@ html body {
  background-color: #e2e8f0;
  display: grid;
  /* below will need some px and fr adjustments */
- grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+ grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
  /* add grid-template-rows */
  grid-gap: 30px;
  padding: 30px;
 }
 
 .card {
-  background-color: #5c4421;
+  background-color: #645743;
   color: #ffffff;
-  padding: 10px;
+  padding: 15px;
   width: 200px;
   height: 200px;
   border-radius: 15px;
-  box-shadow: 10px 15px 20px rgb(182, 182, 182);
+  box-shadow: 10px 15px 20px rgb(151, 151, 151);
+}
+
+#readBtn,
+#deleteBtn {
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  width: 7rem;
+  height: 3rem;
+  margin-bottom: 15px;
 }
 
 #modal {

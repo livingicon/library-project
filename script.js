@@ -81,7 +81,6 @@ function generateCard(book) {
   const deleteBtn = document.createElement('button');
   //add classes and ids
   card.classList.add("card");
-  cardButtons.classList.add('cardButtons');
   readBtn.setAttribute('id', 'readBtn');
   readBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
   deleteBtn.setAttribute('id', 'deleteBtn');
