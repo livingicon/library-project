@@ -38,22 +38,22 @@
     <!-- MODAL FORM -->
     <div id="modal">
       <form id="addBookForm">
-        <div>
+        <div class="column">
           <label for="title">Title</label>
           <input type="text" id="title" name="title" placeholder="title" 
-          maxlength="100" required>
+          maxlength="100">
         </div>
 
-        <div>
+        <div class="column">
           <label for="author">Author</label>
           <input type="text" id="author" name="author" placeholder="author" 
-          maxlength="100" required>
+          maxlength="100">
         </div>
 
-        <div>
+        <div class="column">
           <label for="pages">Pages</label>
           <input type="number" id="pages" name="pages" placeholder="total # of pages" 
-          maxlength="10000" required>
+          maxlength="10000">
         </div>
 
         <div>
@@ -61,11 +61,13 @@
           <input class="checkbox" type="checkbox" id="read">
         </div>
 
-        <button id="submitBtn" type="submit">ADD BOOK</button>
-        <button id="closeBtn" type="submit">CLOSE</button>
+        <div class="button">
+          <button id="submitBtn" type="submit">ADD BOOK</button>
+          <button id="closeBtn" type="submit">CLOSE</button>
+        </div>
       </form>
     </div>
   </div>
-
 </body>
+
 </html>

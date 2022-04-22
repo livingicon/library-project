@@ -1,6 +1,4 @@
 //VARIABLES 
-//library and local storage
-let myLibrary = [];
 //buttons
 const modal = document.getElementById("modal");
 const modalBtn = document.getElementById("modalBtn");
@@ -15,18 +13,22 @@ submitBtn.addEventListener('click', addBookToLibrary);
 closeBtn.addEventListener('click', closeModal);
 
 //FUNCTIONS
-//1. constructor
+
+//1. onload, access local storage
+window.onload = function() {
+  myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+  if (myLibrary === null) {
+    myLibrary = [];
+  }
+  addCards();
+};
+
+//2. constructor
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-};
-
-//2. onload, access local storage
-window.onload = function() {
-  myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-  addCards();
 };
 
 //3. open form
@@ -46,7 +48,8 @@ function addBookToLibrary(e) {
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
   if (!title || !author || !pages) {
-    alert("All fields are required to add a book");
+    alert("All fields are required to add a book, please click ADD NEW BOOK to try again.");
+    return false;
   } else {
     e.preventDefault();
     //myLibrary
@@ -58,19 +61,17 @@ function addBookToLibrary(e) {
   }
 };
 
-//addCards with iteration through myLibrary
+//5. addCards with iteration through myLibrary
 function addCards() {
   const library = document.getElementById("library-cards");
   library.innerHTML = ""; //clears library-cards to avoid double
-  for (book of myLibrary) {
-    generateCard(book);
-  }
+  myLibrary.forEach(element => generateCard(element));
   modal.style.display = "none";
   document.getElementById("addBookForm").reset(); //clears form
 }
 
-//generateCard
-function generateCard(book) {
+//6. generateCard
+function generateCard(media) {
   //create elements
   const card = document.createElement('div');
   const title = document.createElement('p');
@@ -82,16 +83,16 @@ function generateCard(book) {
   //add classes and ids
   card.classList.add("card");
   readBtn.setAttribute('id', 'readBtn');
-  readBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
+  readBtn.setAttribute('data-position', `${myLibrary.indexOf(media)}`);
   deleteBtn.setAttribute('id', 'deleteBtn');
-  deleteBtn.setAttribute('data-position', `${myLibrary.indexOf(book)}`);
-  cardButtons.setAttribute('id', 'cardButtons');//is this working?
+  deleteBtn.setAttribute('data-position', `${myLibrary.indexOf(media)}`);
+  cardButtons.setAttribute('id', 'cardButtons');
   //add text
-  title.textContent = `Title: ${book.title}`;
-  author.textContent = `Author: ${book.author}`;
-  pages.textContent = `Page Count: ${book.pages}`;
+  title.textContent = `Title: ${media.title}`;
+  author.textContent = `Author: ${media.author}`;
+  pages.textContent = `Page Count: ${media.pages}`;
   deleteBtn.textContent = "Delete from Library";
-  if (book.read === true) {
+  if (media.read === true) {
     readBtn.textContent = "Finished";
     readBtn.style.backgroundColor = "rgb(13, 82, 26)";
   } else {
@@ -113,15 +114,14 @@ function generateCard(book) {
   readBtn.addEventListener('click', readBook);
 };
 
-//delete card
+//7. delete card
 function removeBook(e){
-  // console.log(e.target.getAttribute("data-position"));
   myLibrary.splice(e.target.getAttribute("data-position"), 1); //remove from array
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary)); //reset local Storage
   addCards();
 };
 
-//toggle finished_unfinished
+//8. toggle finished_unfinished
 function readBook(e) {
   if (myLibrary[e.target.getAttribute("data-position")].read === true) {
     myLibrary[e.target.getAttribute("data-position")].read = false;
