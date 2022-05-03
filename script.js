@@ -23,13 +23,28 @@ window.onload = function() {
   addCards();
 };
 
-//2. constructor
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+//2. class
+class Book {
+  constructor(
+    title = "unknown",
+    author = "unknown",
+    pages = 0,
+    read = 0
+  ) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 };
+
+//2. constructor
+// function Book(title, author, pages, read) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+// };
 
 //3. open form
 function openModal() {
