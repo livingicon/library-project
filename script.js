@@ -113,18 +113,24 @@ function closeModal() {
 
 // 5. add book
 function addBookToLibrary(e) { 
+  const titleCheck = document.getElementById('title');
   const title = document.getElementById("title").value;
+  const authorCheck = document.getElementById('author');
   const author = document.getElementById("author").value;
+  const pagesCheck = document.getElementById('pages');
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
-
-  e.preventDefault();
-  //myLibrary
-  let newBook = new Book(title, author, pages, read);
-  myLibrary.push(newBook);
-  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-  //cards
-  addCards(newBook);
+  
+  if (!titleCheck.validity.valid || !authorCheck.validity.valid 
+    || !pagesCheck.validity.valid) {
+    alert("Please fill out the form before submission.")
+    e.preventDefault();
+  } else {
+    let newBook = new Book(title, author, pages, read);
+    myLibrary.push(newBook);
+    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+    addCards(newBook);
+  }
 };
 
 // 6. addCards with iteration through myLibrary
