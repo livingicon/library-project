@@ -62,18 +62,14 @@ function addBookToLibrary(e) {
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
-  if (!title || !author || !pages) {
-    alert("All fields are required to add a book, please click ADD NEW BOOK to try again.");
-    return false;
-  } else {
-    e.preventDefault();
-    //myLibrary
-    let newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
-    localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
-    //cards
-    addCards(newBook);
-  }
+  
+  e.preventDefault();
+  //myLibrary
+  let newBook = new Book(title, author, pages, read);
+  myLibrary.push(newBook);
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+  //cards
+  addCards(newBook);
 };
 
 //5. addCards with iteration through myLibrary
