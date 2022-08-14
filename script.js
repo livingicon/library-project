@@ -1,5 +1,5 @@
-//VARIABLES 
-//buttons
+// VARIABLES 
+// buttons
 const modal = document.getElementById("modal");
 const modalBtn = document.getElementById("modalBtn");
 const closeBtn = document.getElementById('closeBtn');
@@ -7,14 +7,14 @@ const submitBtn = document.getElementById("submitBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 const readBtn = document.getElementById('readBtn');
 
-//EVENT LISTENERS
+// EVENT LISTENERS
 modalBtn.addEventListener('click', openModal);
 submitBtn.addEventListener('click', addBookToLibrary);
 closeBtn.addEventListener('click', closeModal);
 
-//FUNCTIONS
+// FUNCTIONS
 
-//1. onload, access local storage
+// 1. onload, access local storage
 window.onload = function() {
   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
   if (myLibrary === null) {
@@ -23,7 +23,7 @@ window.onload = function() {
   addCards();
 };
 
-//2. class
+// 2. class
 class Book {
   constructor(
     title = "unknown",
@@ -38,7 +38,7 @@ class Book {
   }
 };
 
-//2. constructor
+// 2. constructor
 // function Book(title, author, pages, read) {
 //   this.title = title;
 //   this.author = author;
@@ -46,9 +46,64 @@ class Book {
 //   this.read = read;
 // };
 
-//3. open form
+// 3. open form
 function openModal() {
   modal.style.display = "block";
+  showError();
+  validate();
+};
+
+function validate() {
+  const form = document.getElementById('addBookForm');
+  const title = document.getElementById("title");
+  const titleError = document.getElementById('titleError');
+
+  const author = document.getElementById("author");
+  const authorError = document.getElementById('authorError');
+
+  const pages = document.getElementById("pages");
+  const pagesError = document.getElementById('pagesError');
+  form.addEventListener('input', (event) => {
+    if (title.validity.valid) {
+      titleError.textContent = '';
+      // titleError.className = 'error';
+    } else {
+      showError();
+    }
+    if (author.validity.valid) {
+      authorError.textContent = '';
+      authorError.className = 'error';
+    } else {
+      showError();
+    }
+    if (pages.validity.valid) {
+      pagesError.textContent = '';
+      pagesError.className = 'error';
+    } else {
+      showError();
+    }
+  });
+};
+
+function showError() {
+  const title = document.getElementById("title");
+  const titleError = document.getElementById('titleError');
+  const author = document.getElementById("author");
+  const authorError = document.getElementById('authorError');
+  const pages = document.getElementById("pages");
+  const pagesError = document.getElementById('pagesError');
+  if (title.validity.valueMissing) {
+    titleError.textContent = 'You need to enter a title.';
+    titleError.className = 'error';
+  } 
+  if (author.validity.valueMissing) {
+    authorError.textContent = 'You need to enter an author.';
+    authorError.className = 'error';
+  }
+  if (pages.validity.valueMissing) {
+    pagesError.textContent = 'You need to enter the page total.';
+    pagesError.className = 'error';
+  } // add typeMismatch check here for number
 };
 
 function closeModal() {
@@ -56,13 +111,13 @@ function closeModal() {
   document.getElementById("addBookForm").reset();
 };
 
-//4. add book
+// 5. add book
 function addBookToLibrary(e) { 
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
   const read = document.getElementById("read").checked;
-  
+
   e.preventDefault();
   //myLibrary
   let newBook = new Book(title, author, pages, read);
@@ -72,7 +127,7 @@ function addBookToLibrary(e) {
   addCards(newBook);
 };
 
-//5. addCards with iteration through myLibrary
+// 6. addCards with iteration through myLibrary
 function addCards() {
   const library = document.getElementById("library-cards");
   library.innerHTML = ""; //clears library-cards to avoid double
@@ -81,7 +136,7 @@ function addCards() {
   document.getElementById("addBookForm").reset(); //clears form
 }
 
-//6. generateCard
+// 7. generateCard
 function generateCard(media) {
   //create elements
   const card = document.createElement('div');
@@ -125,14 +180,14 @@ function generateCard(media) {
   readBtn.addEventListener('click', readBook);
 };
 
-//7. delete card
+// 8. delete card
 function removeBook(e){
   myLibrary.splice(e.target.getAttribute("data-position"), 1); //remove from array
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary)); //reset local Storage
   addCards();
 };
 
-//8. toggle finished_unfinished
+// 9. toggle finished_unfinished
 function readBook(e) {
   if (myLibrary[e.target.getAttribute("data-position")].read === true) {
     myLibrary[e.target.getAttribute("data-position")].read = false;

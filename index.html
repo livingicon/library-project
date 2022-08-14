@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library Project</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <!-- <script src="script.js"></script> -->
 </head>
 
 <body>
@@ -41,22 +41,22 @@
         <div class="column">
           <label for="title">Title</label>
           <input type="text" class="formValidate" id="title" name="title" placeholder="title" 
-          required maxlength="35">
-          <span class="error" aria-live="polite"></span>
+          required minlength="1">
+          <span id="titleError" aria-live="polite"></span>
         </div>
 
         <div class="column">
           <label for="author">Author</label>
           <input type="text" class="formValidate" id="author" name="author" placeholder="author" 
-          required maxlength="35">
-          <span class="error" aria-live="polite"></span>
+          required minlength="1">
+          <span id="authorError" aria-live="polite"></span>
         </div>
 
         <div class="column">
           <label for="pages">Pages</label>
           <input type="number" class="formValidate" id="pages" name="pages" placeholder="total # of pages" 
-          required maxlength="10000">
-          <span class="error" aria-live="polite"></span>
+          required minlength="1">
+          <span id="pagesError" aria-live="polite"></span>
         </div>
 
         <div>
@@ -71,6 +71,9 @@
       </form>
     </div>
   </div>
+
+<script src="script.js"></script>
+
 </body>
 
 </html>

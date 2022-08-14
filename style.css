@@ -161,7 +161,7 @@ img {
 } */
 
 /* This is our style for the invalid fields */
-input:invalid{
+input:invalid {
   border-color: #900;
   background-color: #FDD;
 }
@@ -173,14 +173,12 @@ input:focus:invalid {
 /* This is the style of our error messages */
 .error {
   width  : 100%;
-  padding: 0;
-
   font-size: 80%;
   color: white;
   background-color: #900;
-  border-radius: 0 0 5px 5px;
+  border-radius: 5px;
 
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 .error.active {
@@ -204,7 +202,7 @@ input:focus:invalid {
   flex-direction: column;
 }
 
-#addBookForm input {
+input {
   background-color: #e4e4e4;
   border: 2px solid rgb(94, 94, 94);
   border-radius: 5px;
