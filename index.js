@@ -7,13 +7,6 @@ const submitBtn = document.getElementById("submitBtn");
 const deleteBtn = document.getElementById("deleteBtn");
 const readBtn = document.getElementById('readBtn');
 
-
-// HERE
-const loggedIn = document.getElementById('loggedIn');
-const loggedOut = document.getElementById('loggedOut');
-
-
-
 // EVENT LISTENERS
 modalBtn.addEventListener('click', openModal);
 submitBtn.addEventListener('click', addBookToLibrary);

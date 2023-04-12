@@ -28,24 +28,6 @@ html body {
   background-color: #ffffff;
 }
 
-
-
-
-/* HERE */
-.logged-in,
-.logged-out {
-  display: none;
-}
-
-.logged-in.active,
-.logged-out.active {
-  display: flex;
-  gap: 20px;
-}
-
-
-
-
 .addBook {
   display: grid;
   justify-items: center;
@@ -161,7 +143,7 @@ img {
   margin-bottom: 15px;
 }
 
-#modal {
+.modal {
   display: none;
   position: fixed; 
   z-index: 1;
