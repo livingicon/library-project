@@ -1,3 +1,6 @@
+
+ 
+
 html body {
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -143,7 +146,7 @@ img {
   margin-bottom: 15px;
 }
 
-.modal {
+#modal {
   display: none;
   position: fixed; 
   z-index: 1;
@@ -157,7 +160,6 @@ img {
 }
 
 /* .formValidate {
-
 } */
 
 /* This is our style for the invalid fields */

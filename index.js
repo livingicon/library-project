@@ -103,7 +103,7 @@ function showError() {
   if (pages.validity.valueMissing) {
     pagesError.textContent = 'You need to enter the page total.';
     pagesError.className = 'error';
-  } // add typeMismatch check here for number
+  }
 };
 
 function closeModal() {
